@@ -15,17 +15,17 @@ export class TestGeneral implements OnInit {
   private valuesService = inject(ValuesService);
   linqAverage = 0;
   linqAverageExpected = 2.5;
-  okStatus: OkStatus = { isOk: false, error: '', nr: -2 };
+  okStatus: OkStatus = { isOk: false, error: '', val: '' };
   versionString = `v${version} [${versionDateString}]`;
   namesActual = '';
   namesExpected = 'Miller Frank, Brown David, Anderson Jack';
 
   ngOnInit(): void {
     this.linqAverage = [1, 2, 3, 4].average(); //testing linq
-    this.valuesService.valuesProductsGet().subscribe(
+    this.valuesService.valuesDummyGet().subscribe(
       {
-        next: x => this.okStatus = x,
-        error: err => this.okStatus.error = err.message,
+        next: (x: OkStatus) => this.okStatus = x,
+        error: (err: any) => this.okStatus.error = err.message,
       });
 
     type Person = {

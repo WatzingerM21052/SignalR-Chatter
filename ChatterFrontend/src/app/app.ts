@@ -3,126 +3,134 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
-// Interface für Chat-Nachrichten für die Anzeige
 interface ChatMessage {
   timestamp: string;
   name: string;
   message: string;
+  isSystem?: boolean; // Für Admin Notifications oder Connect/Disconnect
 }
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './app.html', // Achte darauf, dass du app.html entsprechend anpasst
+  templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  // Login Daten
-  name = 'Hansi';
+  // Login State
+  name = 'Hansi'; // Standardwert für schnelles Testen
   password = 'abcdefg';
   isSignedIn = false;
+  
+  // Admin State
   isAdmin = false;
-
-  // Chat Daten
-  currentMessage = '';
-  currentTopic = '';
-  messages: ChatMessage[] = [];
-
-  // Extension: Topics
-  topicsOfInterestInput = '';
+  nrClients = 0;
+  
+  // Topics Extension
+  topicsInput = 'General, Sports';
   topicsOfInterest: string[] = [];
 
-  // Admin Daten
-  nrClients = 0;
-  adminNotifications: string[] = [];
+  // Chat
+  messages: ChatMessage[] = [];
+  currentMessage = '';
+  currentTopic = '';
 
-  private hubConnection: HubConnection;
+  private connection: HubConnection;
 
   constructor() {
-    // Verbindung aufbauen
-    this.hubConnection = new HubConnectionBuilder()
+    this.connection = new HubConnectionBuilder()
       .withUrl('http://localhost:5000/hub/chat')
       .build();
   }
 
   ngOnInit() {
     this.startConnection();
-    this.registerHandlers();
+    this.registerSignalREvents();
   }
 
-  private startConnection() {
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+  private async startConnection() {
+    try {
+      await this.connection.start();
+      console.log('SignalR Connected');
+    } catch (err) {
+      console.error('SignalR Connection Error:', err);
+    }
   }
 
-  private registerHandlers() {
-    // Empfang: NewMessage
-    this.hubConnection.on('NewMessage', (name: string, message: string, timestamp: string) => {
+  private registerSignalREvents() {
+    this.connection.on('NewMessage', (name, message, timestamp) => {
       this.messages.push({ name, message, timestamp });
     });
 
-    // Empfang: ClientConnected
-    this.hubConnection.on('ClientConnected', (name: string) => {
-      this.messages.push({ name: '', message: `Client ${name} connected`, timestamp: new Date().toLocaleTimeString() });
+    this.connection.on('ClientConnected', (name) => {
+      this.messages.push({ 
+        name: '', 
+        message: `Client ${name} connected`, 
+        timestamp: new Date().toLocaleTimeString(),
+        isSystem: true 
+      });
     });
 
-    // Empfang: ClientDisconnected
-    this.hubConnection.on('ClientDisconnected', (name: string) => {
-      this.messages.push({ name: '', message: `Client ${name} disconnected`, timestamp: new Date().toLocaleTimeString() });
+    this.connection.on('ClientDisconnected', (name) => {
+      this.messages.push({ 
+        name: '', 
+        message: `Client ${name} disconnected`, 
+        timestamp: new Date().toLocaleTimeString(),
+        isSystem: true 
+      });
     });
 
-    // Empfang: AdminNotification
-    this.hubConnection.on('AdminNotification', (msg: string) => {
-      this.messages.push({ name: 'Admin', message: msg, timestamp: new Date().toLocaleTimeString() });
+    this.connection.on('AdminNotification', (message) => {
+      this.messages.push({ 
+        name: 'System', 
+        message: message, 
+        timestamp: new Date().toLocaleTimeString(),
+        isSystem: true 
+      });
     });
 
-    // Empfang: NrClientsChanged
-    this.hubConnection.on('NrClientsChanged', (nr: number) => {
+    this.connection.on('NrClientsChanged', (nr) => {
       this.nrClients = nr;
     });
   }
 
   async signIn() {
     try {
-      // Aufruf: SignIn
-      this.isAdmin = await this.hubConnection.invoke<boolean>('SignIn', this.name, this.password);
+      // Topics parsen
+      this.topicsOfInterest = this.topicsInput.split(',').map(t => t.trim()).filter(t => t);
+      
+      // Rückgabewert ist true, wenn User ein Admin ist
+      this.isAdmin = await this.connection.invoke<boolean>('SignIn', this.name, this.password);
       this.isSignedIn = true;
 
-      // Topics setzen falls vorhanden
       if (this.topicsOfInterest.length > 0) {
-        await this.hubConnection.invoke('RegisterTopicsOfInterest', this.topicsOfInterest);
+        await this.connection.invoke('RegisterTopicsOfInterest', this.topicsOfInterest);
       }
 
       if (this.isAdmin) {
-        // Als Admin gleich mal die Anzahl holen
-        this.nrClients = await this.hubConnection.invoke<number>('GetNrClients');
+        this.nrClients = await this.connection.invoke<number>('GetNrClients');
       }
+
     } catch (err: any) {
-      alert("Error logging in: " + err.message);
+      alert(`Login failed: ${err.message}`);
     }
   }
 
   async signOut() {
-    await this.hubConnection.invoke('SignOut');
     this.isSignedIn = false;
     this.isAdmin = false;
-    this.messages = [];
+    this.messages = []; // Chat leeren beim Ausloggen
   }
 
   async sendMessage() {
     if (!this.currentMessage) return;
-    // Aufruf: SendMessage
-    await this.hubConnection.invoke('SendMessage', this.name, this.currentMessage, this.currentTopic);
+    await this.connection.invoke('SendMessage', this.name, this.currentMessage, this.currentTopic);
     this.currentMessage = '';
   }
 
-  updateTopics() {
-    this.topicsOfInterest = this.topicsOfInterestInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
-    if (this.isSignedIn) {
-      this.hubConnection.invoke('RegisterTopicsOfInterest', this.topicsOfInterest);
-    }
+  async updateTopics() {
+    this.topicsOfInterest = this.topicsInput.split(',').map(t => t.trim()).filter(t => t);
+    await this.connection.invoke('RegisterTopicsOfInterest', this.topicsOfInterest);
   }
 }

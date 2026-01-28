@@ -6,9 +6,9 @@
     <h2> <span class="badge" [style.background-color]="okStatus.isOk?'green':'red'"> isOk: {{okStatus.isOk}}</span></h2>
     @if(okStatus.error){
     <h3> <span class="badge error">{{okStatus.error}}</span></h3>
-    <i>Adapt: Regenerate swagger files and change 'valuesProductsGet' in ngOnInit to a valid endpoint call</i>
+    <i>Adapt: Regenerate swagger files and change 'valuesDummyGet' in ngOnInit to a valid endpoint call</i>
     }
-    @else if (okStatus.nr===-2){
+    @else if (!okStatus.val){
     <h5><span class="badge info">Loading from backend...</span></h5>
     }
   </span>
@@ -24,7 +24,8 @@
   <div>
     This button should look like a Bootstrap success button:
     <button class="btn btn-success">Bootstrap success</button>
-    <div class="opt-out">To opt out: remove the two "bootstrap" entries in /angular.json (sections styles and scripts)</div>
+    <div class="opt-out">To opt out: remove the two "bootstrap" entries in /angular.json (sections styles and scripts)
+    </div>
   </div>
 
   <div>
@@ -40,7 +41,8 @@
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       Tailwind blue
     </button>
-    <div class="opt-in">To opt in: rename tailwind.config_.js to tailwind.config.js and uncomment the three "tailwind" entries in src/styles.scss</div>
+    <div class="opt-in">To opt in: rename tailwind.config_.js to tailwind.config.js and uncomment the three "tailwind"
+      entries in src/styles.scss</div>
   </div>
 
   <div>

@@ -10,12 +10,13 @@ public class ClientInfo
     public DateTime LastMessageTime { get; set; }
     public List<string> TopicsOfInterest { get; set; } = new();
 
-    public bool IsAdmin => Name.StartsWith("Admin");
+    // Logik: User ist Admin, wenn der Name mit "Admin" beginnt
+    public bool IsAdmin => Name.StartsWith("Admin", StringComparison.OrdinalIgnoreCase);
 }
 
 public class ClientRepository
 {
-    // Thread-sicherer Dictionary-Speicher
+    // Thread-sicheres Dictionary: Key ist ConnectionId
     private readonly ConcurrentDictionary<string, ClientInfo> _clients = new();
 
     public void AddClient(string connectionId, string name)
@@ -25,7 +26,7 @@ public class ClientRepository
             ConnectionId = connectionId,
             Name = name,
             RegisterTime = DateTime.Now,
-            LastMessageTime = DateTime.Now
+            LastMessageTime = DateTime.Now // Initialwert
         };
         _clients[connectionId] = info;
     }
@@ -53,11 +54,10 @@ public class ClientRepository
     {
         if (_clients.TryGetValue(connectionId, out var client))
         {
-            client.TopicsOfInterest = topics;
+            client.TopicsOfInterest = topics ?? new List<string>();
         }
     }
 
     public IEnumerable<ClientInfo> GetAllClients() => _clients.Values;
-
     public int Count => _clients.Count;
 }

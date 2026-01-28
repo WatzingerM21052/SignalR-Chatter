@@ -1,4 +1,6 @@
 using ChatterBackend.Hubs;
+using ChatterBackend.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatterBackend.Controllers;
@@ -19,39 +21,45 @@ public class ChatterController : ControllerBase
     [HttpGet]
     public IActionResult AllUsers()
     {
-        this.Log(); // Logging Extension nutzen
-        NotifyAdminsOfAction("All users requested");
+        this.Log();
 
-        var users = _repository.GetAllClients().Select(c => new
+        NotifyAdmins("All users requested");
+
+        var data = _repository.GetAllClients().Select(c => new
         {
             name = c.Name,
             registeredString = c.RegisterTime.ToString("HH:mm:ss"),
+            // Falls noch keine Nachricht gesendet wurde, könnte man 00:00:00 anzeigen oder die echte Zeit
             lastMessageTimeString = c.LastMessageTime.ToString("HH:mm:ss"),
             topicsOfInterest = c.TopicsOfInterest
         });
 
-        return Ok(users);
+        return Ok(data);
     }
 
     [HttpPost]
     public async Task<IActionResult> Broadcast([FromBody] string message)
     {
         this.Log();
-        NotifyAdminsOfAction("Broadcast sent");
+        NotifyAdmins($"Broadcast sent: {message}");
 
-        // Nachricht an alle via Hub Context senden
-        await _hubContext.Clients.All.NewMessage("BROADCAST", message, DateTime.Now.ToString("HH:mm:ss"));
+        // "Admin" oder "System" als Absender Name
+        await _hubContext.Clients.All.NewMessage("Admin", message, DateTime.Now.ToString("HH:mm:ss"));
 
         return Ok();
     }
 
-    private void NotifyAdminsOfAction(string actionMessage)
+    private void NotifyAdmins(string msg)
     {
-        // Dies muss "fire and forget" sein oder awaited werden, hier einfachheitshalber nicht awaited im void
-        var adminIds = _repository.GetAllClients().Where(c => c.IsAdmin).Select(c => c.ConnectionId).ToList();
+        // Fire & Forget Notification an Admins
+        var adminIds = _repository.GetAllClients()
+            .Where(c => c.IsAdmin)
+            .Select(c => c.ConnectionId)
+            .ToList();
+
         if (adminIds.Any())
         {
-            _hubContext.Clients.Clients(adminIds).AdminNotification(actionMessage);
+            _hubContext.Clients.Clients(adminIds).AdminNotification(msg);
         }
     }
 }

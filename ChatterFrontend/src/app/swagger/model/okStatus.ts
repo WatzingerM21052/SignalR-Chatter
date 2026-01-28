@@ -1,5 +1,5 @@
 /**
- * TestAngularSwagger
+ * ChatterBackend
  *
  * 
  *
@@ -11,7 +11,7 @@
 
 export interface OkStatus { 
     isOk?: boolean;
-    nr?: number;
+    val?: string | null;
     error?: string | null;
 }
 

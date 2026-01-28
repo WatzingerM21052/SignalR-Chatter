@@ -1,6 +1,16 @@
 @baseUrl = http://localhost:5000
 ##################################################
 
-##################################################
+
+################################################## Chatter
+GET {{baseUrl}}/Chatter/AllUsers
+#####
+POST {{baseUrl}}/Chatter/Broadcast
+Content-type: application/json
+
+"abc"
+#####
+
+################################################## Values
 GET {{baseUrl}}/Values/Dummy
 #####

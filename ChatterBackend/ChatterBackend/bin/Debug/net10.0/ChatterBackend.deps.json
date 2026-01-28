@@ -1,0 +1,138 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "ChatterBackend/1.0.0": {
+        "dependencies": {
+          "GrueneisR.RestClientGenerator": "1.3.1",
+          "GrueneisR.SignalRAnalyzer": "1.7.4",
+          "Swashbuckle.AspNetCore": "10.0.0"
+        },
+        "runtime": {
+          "ChatterBackend.dll": {}
+        }
+      },
+      "GrueneisR.RestClientGenerator/1.3.1": {
+        "runtime": {
+          "lib/net8.0/RestClientGeneratorMiddlewareLib.dll": {
+            "assemblyVersion": "1.3.1.0",
+            "fileVersion": "1.3.1.0"
+          }
+        }
+      },
+      "GrueneisR.SignalRAnalyzer/1.7.4": {
+        "runtime": {
+          "lib/net8.0/SignalRAnalyzer.dll": {
+            "assemblyVersion": "1.7.4.0",
+            "fileVersion": "1.7.4.0"
+          }
+        }
+      },
+      "Microsoft.OpenApi/2.3.0": {
+        "runtime": {
+          "lib/net8.0/Microsoft.OpenApi.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore/10.0.0": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore.Swagger": "10.0.0",
+          "Swashbuckle.AspNetCore.SwaggerGen": "10.0.0",
+          "Swashbuckle.AspNetCore.SwaggerUI": "10.0.0"
+        }
+      },
+      "Swashbuckle.AspNetCore.Swagger/10.0.0": {
+        "dependencies": {
+          "Microsoft.OpenApi": "2.3.0"
+        },
+        "runtime": {
+          "lib/net10.0/Swashbuckle.AspNetCore.Swagger.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.1949"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.SwaggerGen/10.0.0": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore.Swagger": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.1949"
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.SwaggerUI/10.0.0": {
+        "runtime": {
+          "lib/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.1949"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ChatterBackend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GrueneisR.RestClientGenerator/1.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LQ5k8k7H2wBkR89nvBHmoNn5wTwj16MLzRFvZs31KuzxB1hSWzmlSzGaLkyAiM+6IYyKYesUsI5oV154C9xPpw==",
+      "path": "grueneisr.restclientgenerator/1.3.1",
+      "hashPath": "grueneisr.restclientgenerator.1.3.1.nupkg.sha512"
+    },
+    "GrueneisR.SignalRAnalyzer/1.7.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8evdZZJjT0b1wgDm/HBPjnLldpOysQqIUVvOGjytWASTVjkvkGVdhBUz5qf+3kM7Y/9mbCf7qyijsX5gU85lyw==",
+      "path": "grueneisr.signalranalyzer/1.7.4",
+      "hashPath": "grueneisr.signalranalyzer.1.7.4.nupkg.sha512"
+    },
+    "Microsoft.OpenApi/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5RZpjyt0JMmoc/aEgY9c1vE5pusdDGvkPl9qKIy9KFbRiIXD+w7gBJxX+unSjzzOcfgRoYxnO4okZyqDAL2WEw==",
+      "path": "microsoft.openapi/2.3.0",
+      "hashPath": "microsoft.openapi.2.3.0.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ciYIKYWeB1486X8CgUqrUgahqV8xAdzVPuxN2buW9VvmYcfwtziE2G5f+gE3QSVv+iKE01U7WKXyS1GadQjyuQ==",
+      "path": "swashbuckle.aspnetcore/10.0.0",
+      "hashPath": "swashbuckle.aspnetcore.10.0.0.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.Swagger/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X1GSq/Eh4FX58Jf7fjUyJLUoMh10jXv4VmT/BUqDAgKIkpo+UuL/SwGOZI+U8XiLFOxpAv4lGR0kFLVPs0wUIA==",
+      "path": "swashbuckle.aspnetcore.swagger/10.0.0",
+      "hashPath": "swashbuckle.aspnetcore.swagger.10.0.0.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.SwaggerGen/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B8C0JC1Iknubtslov37ZvDW9w53X9IQ05UFxXxJB41ZH8cwmzWTZnAXyvqeToJ/yZNfjdCOtKdwTSGiNkQvVuA==",
+      "path": "swashbuckle.aspnetcore.swaggergen/10.0.0",
+      "hashPath": "swashbuckle.aspnetcore.swaggergen.10.0.0.nupkg.sha512"
+    },
+    "Swashbuckle.AspNetCore.SwaggerUI/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KfOQg2fFUBrKNRZKeXDKB6qnyRnAMhv7hKUXYdDuL3tPndwBZEh9K4w5gj+FJBvCpR24J7Z9nt1zVZ+J0ZVe2g==",
+      "path": "swashbuckle.aspnetcore.swaggerui/10.0.0",
+      "hashPath": "swashbuckle.aspnetcore.swaggerui.10.0.0.nupkg.sha512"
+    }
+  }
+}

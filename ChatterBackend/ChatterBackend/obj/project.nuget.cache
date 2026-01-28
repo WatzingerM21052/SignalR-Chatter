@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "+ymdH/4L4Rc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\matth\\OneDrive\\Desktop\\Schule\\5A\\POS\\Projekte\\SignalR-Chatter\\ChatterBackend\\ChatterBackend\\ChatterBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\matth\\.nuget\\packages\\grueneisr.restclientgenerator\\1.3.1\\grueneisr.restclientgenerator.1.3.1.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\grueneisr.signalranalyzer\\1.7.4\\grueneisr.signalranalyzer.1.7.4.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.extensions.apidescription.server\\10.0.0\\microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\microsoft.openapi\\2.3.0\\microsoft.openapi.2.3.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\swashbuckle.aspnetcore\\10.0.0\\swashbuckle.aspnetcore.10.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\10.0.0\\swashbuckle.aspnetcore.swagger.10.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\10.0.0\\swashbuckle.aspnetcore.swaggergen.10.0.0.nupkg.sha512",
+    "C:\\Users\\matth\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\10.0.0\\swashbuckle.aspnetcore.swaggerui.10.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

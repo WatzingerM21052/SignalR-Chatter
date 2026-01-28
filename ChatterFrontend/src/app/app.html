@@ -1,5 +1,63 @@
-<h1>Angular20</h1>
+<div class="container p-4">
+    <h2>Angular SignalR Chatter</h2>
 
-<hr />
-<router-outlet />
-<hr />
+    <div class="row mb-3 align-items-center">
+        <div class="col-auto">
+            <label>Name:</label>
+            <input type="text" [(ngModel)]="name" [disabled]="isSignedIn" class="form-control d-inline-block w-auto">
+        </div>
+        <div class="col-auto">
+            <label>Pwd:</label>
+            <input type="text" [(ngModel)]="password" [disabled]="isSignedIn"
+                class="form-control d-inline-block w-auto">
+        </div>
+        <div class="col-auto">
+            <button *ngIf="!isSignedIn" (click)="signIn()" class="btn btn-success">SignIn</button>
+            <button *ngIf="isSignedIn" (click)="signOut()" class="btn btn-primary">SignOut</button>
+        </div>
+        <div class="col-auto text-danger" *ngIf="isAdmin">
+            Admin {{nrClients}} clients
+        </div>
+    </div>
+
+    <div class="row mb-3 align-items-center">
+        <div class="col-auto">
+            <label>Topics of interest</label>
+            <input type="text" [(ngModel)]="topicsOfInterestInput" class="form-control d-inline-block w-auto"
+                placeholder="General, Sports">
+            <button (click)="updateTopics()" class="btn btn-primary ms-2">Update</button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row mb-3" *ngIf="isSignedIn">
+        <div class="col-auto">
+            <input type="text" [(ngModel)]="currentMessage" class="form-control" placeholder="Message...">
+        </div>
+        <div class="col-auto">
+            <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+        </div>
+        <div class="col-auto">
+            <label>Topic:</label>
+            <input type="text" [(ngModel)]="currentTopic" class="form-control d-inline-block w-auto">
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Name</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let msg of messages">
+                <td>{{msg.timestamp}}</td>
+                <td>{{msg.name}}</td>
+                <td>{{msg.message}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

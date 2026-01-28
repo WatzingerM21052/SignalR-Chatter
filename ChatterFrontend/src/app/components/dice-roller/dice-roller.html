@@ -1,0 +1,8 @@
+<h2>Dice Roller</h2>
+<button (click)="rollDice()">Roll Dice</button>
+@if(rolledNumber())
+{
+    <p>Server rolled {{rolledNumber()}}</p>
+}@else {
+    <p>No roll yet.</p>
+}

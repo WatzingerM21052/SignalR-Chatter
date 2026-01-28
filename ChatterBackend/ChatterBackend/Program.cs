@@ -3,6 +3,7 @@
 //           v10.0.2 from 2025-12-30
 //   (C)Robert Grueneis/HTL Grieskirchen 
 //----------------------------------------
+using ChatterBackend.Hubs;
 using GrueneisR.RestClientGenerator;
 
 using Microsoft.OpenApi;
@@ -17,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region -------------------------------------------- ConfigureServices
 builder.Services.AddControllers();
+builder.Services.AddSingleton<ClientRepository>();
+builder.Services.AddSignalR();
 builder.Services
   .AddEndpointsApiExplorer()
   .AddAuthorization()
@@ -61,6 +64,7 @@ app.Map("/", () => Results.Redirect("/swagger"));
 
 
 app.MapControllers();
+app.MapHub<ChatHub>("/hub/chat");
 Console.WriteLine($"Ready for clients at {DateTime.Now:HH:mm:ss} ...");
 app.Run();
 

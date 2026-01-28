@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChatterBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+230d926314def79efbb63cc45e6d5ba358282a15")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChatterBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChatterBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
